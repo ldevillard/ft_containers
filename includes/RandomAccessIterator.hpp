@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:34:55 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/05 16:11:23 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 16:41:24 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,20 +84,16 @@ namespace ft
 				return *this;
 			}
 
+			//ARITHMETIC OPERATORS
+			random_access_iterator operator+(difference_type n) const { return random_access_iterator<T>(_it + n); }
+			random_access_iterator operator-(difference_type n) const { return random_access_iterator<T>(_it - n); }
+
+			//ACCESS OPERATOR
+			reference operator[](difference_type n) const { return _it[n]; }
+
 		private:
 			pointer _it;
 	};
 }
-/*
 
-a + n
-n + a
-a - n
-a - b
-
-a += n
-a -= n
-
-a[n]
-*/
 #endif
