@@ -21,7 +21,7 @@ $(NAME): $(OBJS) $(HEADER)
 		@echo "\033[33m"
 		$(CC) -o $(NAME) $(OBJS)
 		@echo "\033[0m"
-		@mv srcs/*.o ./bin
+		@mv srcs/*.o ./bin/
 		@echo "\033[1m\033[32mDone !\n\033[0m"
 
 all : $(NAME)

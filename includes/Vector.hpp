@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 12:32:04 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/09/01 11:16:12 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 14:32:37 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ namespace ft
 		typedef typename allocator_type::pointer pointer; //pointeur **
 		typedef typename allocator_type::const_pointer const_pointer; //const ptr **
 		
-		typedef implementation-defined iterator; //have to implement my own iterator system
+		//typedef implementation-defined iterator; //have to implement my own iterator system
 	};
 }
 

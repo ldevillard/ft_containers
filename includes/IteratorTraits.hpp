@@ -1,17 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Iterator.hpp                                       :+:      :+:    :+:   */
+/*   IteratorTraits.hpp                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 11:14:47 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/09/13 11:27:49 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 13:30:48 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ITERATOR_HPP
-# define ITERATOR_HPP
+#ifndef ITERATORTRAITS_HPP
+# define ITERATORTRAITS_HPP
+
+#include <iterator>
 
 namespace ft
 {
