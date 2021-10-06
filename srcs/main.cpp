@@ -6,12 +6,13 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 10:46:35 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/05 14:27:50 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 11:01:26 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Vector.hpp"
-#include "../includes/RandomAccessIterator.hpp"
+#include "../includes/iterator/RandomAccessIterator.hpp"
+#include "../includes/iterator/ReverseIterator.hpp"
 #include <iostream>
 #include <vector>
 #include <iterator>

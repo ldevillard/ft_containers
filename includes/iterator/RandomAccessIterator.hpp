@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:34:55 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/05 16:41:24 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 13:28:23 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,24 @@ namespace ft
 			//INCREMENT DECREMENT OPERATORS
 			random_access_iterator &operator++()
 			{
-				_it++;
+				++_it;
 				return *this;
 			}
 			random_access_iterator operator++(int)
 			{
 				random_access_iterator tmp(*this);
-				_it++;
+				++_it;
 				return tmp;
 			}
 			random_access_iterator &operator--()
 			{
-				_it--;
+				--_it;
 				return *this;
 			}
 			random_access_iterator operator--(int)
 			{
 				random_access_iterator tmp(*this);
-				_it--;
+				--_it;
 				return tmp;
 			}
 			random_access_iterator &operator+=(difference_type n)
@@ -86,8 +86,9 @@ namespace ft
 
 			//ARITHMETIC OPERATORS
 			random_access_iterator operator+(difference_type n) const { return random_access_iterator<T>(_it + n); }
+			difference_type operator+(const random_access_iterator &it) { return _it + it._it; }
 			random_access_iterator operator-(difference_type n) const { return random_access_iterator<T>(_it - n); }
-
+			difference_type operator-(const random_access_iterator &it) { return _it - it._it; }
 			//ACCESS OPERATOR
 			reference operator[](difference_type n) const { return _it[n]; }
 

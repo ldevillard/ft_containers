@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/01 11:14:47 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/05 13:30:48 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/05 16:53:40 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 namespace ft
 {
-	template< class Iter >
+	template <class Iter>
 	struct iterator_traits
 	{
 		typedef typename Iter::difference_type difference_type;
@@ -27,7 +27,7 @@ namespace ft
 		typedef typename Iter::iterator_category iterator_category;
 	};
 
-	template< class T >
+	template <class T>
 	struct iterator_traits<T*>
 	{
 		typedef ptrdiff_t difference_type;
@@ -37,7 +37,7 @@ namespace ft
 		typedef std::random_access_iterator_tag iterator_category;
 	};
 	
-	template< class T >
+	template <class T>
 	struct iterator_traits<const T*>
 	{
 		typedef ptrdiff_t difference_type;
