@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 10:54:17 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/06 13:53:39 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/06 14:20:04 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,37 +94,49 @@ namespace ft
 	template <class Iterator>
 	bool operator==(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
 	{
-		
+		return lhs.base() == rhs.base();
 	}
 
 	template <class Iterator>
 	bool operator!=(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
 	{
-		
+		return lhs.base() != rhs.base();
 	}
 
 	template <class Iterator>
 	bool operator<(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
 	{
-		
+		return lhs.base() > rhs.base();
 	}
 
 	template <class Iterator>
 	bool operator<=(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
 	{
-		
+		return lhs.base() >= rhs.base();
 	}
 
 	template <class Iterator>
 	bool operator>(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
 	{
-		
+		return lhs.base() < rhs.base();
 	}
 
 	template <class Iterator>
 	bool operator>=(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
 	{
-		
+		return lhs.base() <= rhs.base();
+	}
+
+	template <class Iterator>
+	reverse_iterator<Iterator> operator+(typename reverse_iterator<Iterator>::difference_type n, const reverse_iterator<Iterator> &rev_it)
+	{
+		return rev_it + n;
+	}
+
+	template <class Iterator>
+	typename reverse_iterator<Iterator>::difference_type operator-(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
+	{
+		return lhs.base() - rhs.base();
 	}
 }
 
