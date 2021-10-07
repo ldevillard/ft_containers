@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:34:55 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/06 13:28:23 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 10:42:44 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ namespace ft
 			}
 
 			//COMPARISON OPERATORS
-			bool operator==(const random_access_iterator &it) const { return it == _it; }
-			bool operator!=(const random_access_iterator &it) const { return it != _it; }
-			bool operator<(const random_access_iterator &it) const { return it < _it; }
-			bool operator>(const random_access_iterator &it) const { return it > _it; }
-			bool operator<=(const random_access_iterator &it) const { return it <= _it; }
-			bool operator>=(const random_access_iterator &it) const { return it >= _it; }
+			bool operator==(const random_access_iterator &it) const { return _it == it._it; }
+			bool operator!=(const random_access_iterator &it) const { return _it != it._it; }
+			bool operator<(const random_access_iterator &it) const { return _it < it._it; }
+			bool operator>(const random_access_iterator &it) const { return _it > it._it; }
+			bool operator<=(const random_access_iterator &it) const { return _it <= it._it; }
+			bool operator>=(const random_access_iterator &it) const { return _it >= it._it; }
 
 			//DEREFERENCED OPERATORS
 			pointer operator->() const { return _it; }
