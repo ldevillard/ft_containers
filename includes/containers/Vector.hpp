@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 12:32:04 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/07 14:31:16 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/07 16:41:12 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,103 @@ namespace ft
 					_size = n;
 				}
 			}
+
 			//----------ELEMENT ACCESS--------
 			reference operator[] (size_type n)
 			{
 				reference idx = *(_tab + n);
 				return idx;
 			}
+			reference at (size_type n)
+			{
+				if (n >= _size)
+					throw std::out_of_range("Error: you're trying to acceed to an out of ranage element!");
+				return _tab[n];
+			}
+			const_reference at (size_type n) const
+			{
+				if (n >= _size)
+					throw std::out_of_range("Error: you're trying to acceed to an out of ranage element!");
+				return _tab[n];
+			}
+			reference front() { _tab[0]; }
+			const_reference front() const { _tab[0]; }
+			reference back() { return _tab[_size - 1]; }
+			const_reference back() const { return _tab[_size - 1]; }
+
+			//----------MODIFIERS--------
+			template <class InputIterator>
+			void assign (InputIterator first, InputIterator last,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
+			{
+				size_type newSize = last - first;
+				if (newSize > _size)
+					reserve(newSize);
+				for (size_type i = 0; i < _size; i++)
+					_allocator.destroy(&_tab[i]);
+				_size = newSize;
+				for (size_type i = 0; i < _size; i++)
+					_allocator.construct(&_tab[i], *(first + i));
+			}
+			void assign (size_type n, const value_type& val)
+			{
+				if (n > _size)
+					reserve(n);
+				for (size_type i = 0; i < _size; i++)
+					_allocator.destroy(&_tab[i]);
+				_size = n;
+				for (size_type i = 0; i < _size; i++)
+					_allocator.construct(&_tab[i], val);
+			}
+			void push_back (const value_type& val)
+			{
+				if (_size + 1 > _volume)
+					_reAlloc();
+				_allocator.construct(&_tab[_size++], val);
+			}
+			void pop_back()
+			{
+				_allocator.destroy(&_tab[_size - 1]);
+				_size--;
+			}
+			iterator insert(iterator position, const value_type& val)
+			{
+				size_type dist = position - begin();
+				if (_size + 1 > _volume)
+					_reAlloc();
+				_size++;
+				for (size_type i = _size - 1; i > dist; i--)
+					_allocator.construct(&_tab[i], _tab[i - 1]);
+				_allocator.construct(&_tab[dist], val);
+				return iterator(begin() + dist);
+			}
+			void insert (iterator position, size_type n, const value_type& val)
+			{
+				size_type dist = position - begin();
+				if (_size + n > _volume)
+				{
+					if (n > _size)
+						reserve(_size + n);
+					else
+						_reAlloc();
+				}
+				_size += n;
+				for (size_type i = _size - 1; i > dist; i--)
+					_allocator.construct(&_tab[i], _tab[i - n]);
+				for (size_type i = 0; i < n; i++)
+					_allocator.construct(&_tab[dist + i], val);
+			}
 
 		private:
+
+			void	_reAlloc()
+			{
+				if (_volume == 0)
+					reserve(1);
+				else
+					reserve(_volume * 2);
+			}
+			
 			size_type		_size;
 			size_type		_volume;
 			allocator_type	_allocator;
