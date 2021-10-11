@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 12:32:04 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/11 11:48:32 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/11 13:17:37 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "../iterator/RandomAccessIterator.hpp"
 #include "../iterator/ReverseIterator.hpp"
 #include "../utils/TypeTraits.hpp"
+#include "../utils/Tools.hpp"
 
 #include <iostream> //DEBUG
 
@@ -262,7 +263,7 @@ namespace ft
 				return begin() + dist;
 			}
 
-			void swap(vector& x)
+			void swap(vector &x)
 			{
 				size_type		sizeTemp = x._size;
 				size_type		volTemp = x._volume;
@@ -309,6 +310,51 @@ namespace ft
 			allocator_type	_allocator;
 			pointer			_tab;
 	};
+
+	template <class T, class Alloc>
+	bool operator==(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+	{
+		if (lhs.size() == rhs.size())
+			return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+		return false;
+	}
+
+	template <class T, class Alloc>
+	bool operator!=(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <class T, class Alloc>
+	bool operator<(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+	{
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template <class T, class Alloc>
+	bool operator<=(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template <class T, class Alloc>
+	bool operator>(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+	{
+		return rhs < lhs;
+	}
+
+	template <class T, class Alloc>
+	bool operator>=(const vector<T,Alloc> &lhs, const vector<T,Alloc> &rhs)
+	{
+		return !(lhs < rhs);
+	}
+
+	template <class T, class Alloc>
+	void swap(vector<T,Alloc> &x, vector<T,Alloc> &y)
+	{
+		x.swap(y);
+	}
+
 }
 
 #endif

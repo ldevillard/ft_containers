@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 10:46:35 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/11 11:49:35 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/11 13:20:31 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,57 +17,49 @@
 #include <vector>
 #include <iterator>
 #include <list>
-
+#include <string>
 /*
 int main()
 {
-	ft::vector<int> tab(4, 5);
-	ft::vector<int> tab2(2, 3);
-	ft::vector<int>::iterator it = tab2.begin();
+	ft::vector<std::string> tab;
 
-	it++;
+	tab.push_back("Hey");
+	tab.push_back("lolilol");
+	tab.pop_back();
+	tab.push_back("dabadi");
 
-	tab2.insert(it, tab.begin(), tab.end());
-	
-	std::cout << "CAPACITY : " << tab2.capacity() << std::endl;
+	ft::vector<std::string>::iterator it;
 
-	for (it = tab2.begin(); it != tab2.end(); it++)
+	for (it = tab.begin(); it != tab.end(); it++)
 		std::cout << *it << std::endl;
+
+	std::cout << tab.size() << std::endl;
 
 	return 0;
 }*/
+
+int main ()
+{
+  ft::vector<int> foo (3,100);   // three ints with a value of 100
+  ft::vector<int> bar (5,200);   // five ints with a value of 200
+  ft::swap(foo, bar);
+
+  std::cout << "foo contains:";
+  for (ft::vector<int>::iterator it = foo.begin(); it!=foo.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+
+  std::cout << "bar contains:";
+  for (ft::vector<int>::iterator it = bar.begin(); it!=bar.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+
+  return 0;
+}
 /*
 int main ()
 {
-	ft::vector<int> myvector;
-
-  // set some values (from 1 to 10)
-  for (int i=1; i<=10; i++)
-  {
-  	myvector.push_back(i);
-  }
-	  
-
-  // erase the 6th element
-  myvector.erase (myvector.begin()+5);
-
-  std::cout << "CAPACITY : " << myvector.capacity() << std::endl;
-
-  // erase the first 3 elements:
-  ft::vector<int>::iterator it = myvector.erase (myvector.begin(),myvector.begin()+3);
-
-  std::cout << "myvector contains:";
-  for (unsigned i=0; i<myvector.size(); ++i)
-    std::cout << ' ' << myvector[i];
-  std::cout << '\n';
-  std::cout << *it << std::endl;
-
-  return 0;
-}*/
-
-int main ()
-{
-  ft::vector<int> myvector;
+  std::vector<int> myvector;
   int * p;
   unsigned int i;
 
@@ -86,4 +78,19 @@ int main ()
   myvector.get_allocator().deallocate(p,5);
 
   return 0;
-}
+}*/
+/*
+int main()
+{
+  std::vector<int> foo (2,200);   // three ints with a value of 100
+  std::vector<int> bar (2,200);   // two ints with a value of 200
+
+  if (foo==bar) std::cout << "foo and bar are equal\n";
+  if (foo!=bar) std::cout << "foo and bar are not equal\n";
+  if (foo< bar) std::cout << "foo is less than bar\n";
+  if (foo> bar) std::cout << "foo is greater than bar\n";
+  if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+  if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+
+  return 0;
+}*/
