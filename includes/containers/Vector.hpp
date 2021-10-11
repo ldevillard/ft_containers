@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 12:32:04 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/11 13:17:37 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/11 14:57:59 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "../utils/TypeTraits.hpp"
 #include "../utils/Tools.hpp"
 
-#include <iostream> //DEBUG
+#include <iostream>
 
 namespace ft
 {
@@ -77,6 +77,13 @@ namespace ft
 			
 			~vector() { _allocator.deallocate(_tab, _size); }
 
+			vector &operator=(const vector &x)
+			{
+				vector tmp(x);
+				swap(tmp);
+				return *this;
+			}
+
 			//----------ITERATORS--------
 			iterator begin() { return iterator(_tab); }
 			const_iterator begin() const { return const_iterator(_tab); }
@@ -93,7 +100,7 @@ namespace ft
 			size_type max_size() const { return _allocator.max_size(); }
 			size_type capacity() const { return _volume; }
 			bool empty() const { return _size == 0; }
-			void reserve (size_type n)
+			void reserve(size_type n)
 			{
 				if (n > max_size())
 					throw std::length_error("Error: max_size reached!");
@@ -111,7 +118,7 @@ namespace ft
 					_volume = n;
 				}
 			}
-			void resize (size_type n, value_type val = value_type())
+			void resize(size_type n, value_type val = value_type())
 			{
 				if (n < _size)
 				{
@@ -154,7 +161,7 @@ namespace ft
 
 			//----------MODIFIERS--------
 			template <class InputIterator>
-			void assign (InputIterator first, InputIterator last,
+			void assign(InputIterator first, InputIterator last,
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
 			{
 				size_type newSize = last - first;
@@ -166,7 +173,7 @@ namespace ft
 				for (size_type i = 0; i < _size; i++)
 					_allocator.construct(&_tab[i], *(first + i));
 			}
-			void assign (size_type n, const value_type& val)
+			void assign(size_type n, const value_type& val)
 			{
 				if (n > _size)
 					reserve(n);
@@ -200,7 +207,7 @@ namespace ft
 				_allocator.construct(&_tab[dist], val);
 				return iterator(begin() + dist);
 			}
-			void insert (iterator position, size_type n, const value_type& val)
+			void insert(iterator position, size_type n, const value_type& val)
 			{
 				size_type dist = position - begin();
 				if (_size + n > _volume)
