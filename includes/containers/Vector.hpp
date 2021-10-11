@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 12:32:04 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/07 16:41:12 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/11 11:48:32 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ namespace ft
 				for (size_type i = 0; i < _size; i++)
 					_allocator.construct(&_tab[i], val);
 			}
+
 			void push_back (const value_type& val)
 			{
 				if (_size + 1 > _volume)
@@ -186,6 +187,7 @@ namespace ft
 				_allocator.destroy(&_tab[_size - 1]);
 				_size--;
 			}
+			
 			iterator insert(iterator position, const value_type& val)
 			{
 				size_type dist = position - begin();
@@ -212,6 +214,84 @@ namespace ft
 					_allocator.construct(&_tab[i], _tab[i - n]);
 				for (size_type i = 0; i < n; i++)
 					_allocator.construct(&_tab[dist + i], val);
+			}
+			template <class InputIterator>
+			void insert(iterator position, InputIterator first, InputIterator last,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL)
+			{
+				size_type dist = position - begin();
+				size_type n = last - first;
+				if (_size + n > _volume)
+				{
+					if (n > _size)
+						reserve(_size + n);
+					else
+						_reAlloc();
+				}
+				_size += n;
+				for (size_type i = _size - 1; i > dist; i--)
+					_allocator.construct(&_tab[i], _tab[i - n]);
+				for (size_type i = 0; i < n; i++)
+					_allocator.construct(&_tab[dist + i], *(first + i));
+			}
+			
+			iterator erase(iterator position)
+			{
+				size_type dist = position - begin();
+				_allocator.destroy(&_tab[dist]);
+				for (size_type i = dist; i < _size; i++)
+				{
+					_allocator.construct(&_tab[i], _tab[i + 1]);
+					_allocator.destroy(&_tab[i + 1]);
+				}
+				_size--;
+				return begin() + dist;
+			}
+			iterator erase(iterator first, iterator last)
+			{
+				size_type dist = first - begin();
+				size_type n = last - first;
+				for (size_type i = 0; i < n; i++)
+					_allocator.destroy(&_tab[dist + i]);
+				for (size_type i = dist; i < _size; i++)
+				{
+					_allocator.construct(&_tab[i], _tab[i + n]);
+					_allocator.destroy(&_tab[i + n]);
+				}
+				_size -= n;
+				return begin() + dist;
+			}
+
+			void swap(vector& x)
+			{
+				size_type		sizeTemp = x._size;
+				size_type		volTemp = x._volume;
+				allocator_type	allocTemp = x._allocator;
+				pointer			tabTemp = x._tab;
+
+				x._size = _size;
+				x._volume = _volume;
+				x._allocator = _allocator;
+				x._tab = _tab;
+				
+				_size = sizeTemp;
+				_volume = volTemp;
+				_allocator = allocTemp;
+				_tab = tabTemp;
+			}
+
+			void clear()
+			{
+				for (size_type i = 0; i < _size; i++)
+					_allocator.destroy(&_tab[i]);
+				_size = 0;
+			}
+
+			//----------ALLOCATOR--------
+			allocator_type get_allocator() const
+			{
+				allocator_type ret(_allocator);
+				return ret;
 			}
 
 		private:
