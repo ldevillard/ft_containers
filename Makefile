@@ -1,13 +1,20 @@
 NAME = ft_containers
 CC = clang++
 FLAGS = -Wall -Wextra -Werror -std=c++98
-HEADERS = includes/Vector.hpp
+HEADERS = includes/containers/Vector.hpp\
+			includes/containers/Stack.hpp\
+			includes/containers/Map.hpp\
+			includes/iterator/RandomAccessIterator.hpp\
+			includes/iterator/ReverseIterator.hpp\
+			includes/iterator/IteratorTraits.hpp\
+			includes/utils/Tools.hpp\
+			includes/utils/TypeTraits.hpp\
+			includes/utils/AVLTree.hpp
 SRCS =	srcs/main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
 %.o: %.cpp
-		@clear
 		@echo "\033[35m┌─┐┌┬┐   ┌─┐┌─┐┌┐┌┌┬┐┌─┐┬┌┐┌┌─┐┬─┐┌─┐\033[0m"
 		@echo "\033[34m├┤  │    │  │ ││││ │ ├─┤││││├┤ ├┬┘└─┐\033[0m"
 		@echo "\033[36m└   ┴────└─┘└─┘┘└┘ ┴ ┴ ┴┴┘└┘└─┘┴└─└─┘\033[0m"
@@ -16,18 +23,17 @@ OBJS = $(SRCS:.cpp=.o)
 		$(CC) $(FLAGS) -c $< -o $(<:.cpp=.o)
 		@echo "\033[0m"
 
-$(NAME): $(OBJS) $(HEADER)
+$(NAME): $(OBJS) $(HEADERS)
 		@echo "\033[1m\033[36mLinking\033[0m"
 		@echo "\033[33m"
 		$(CC) -o $(NAME) $(OBJS)
 		@echo "\033[0m"
-		@mv srcs/*.o ./bin/
 		@echo "\033[1m\033[32mDone !\n\033[0m"
 
 all : $(NAME)
 
 clean :
-		rm -rf bin/*.o
+		rm -rf srcs/*.o
 		@echo "\033[91m...\033[0m"
 
 fclean : clean

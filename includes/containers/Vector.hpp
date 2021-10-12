@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 12:32:04 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/11 14:57:59 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/11 15:31:23 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ namespace ft
 			typedef size_t size_type;
 	
 			//----------CONSTRUCTORS--------
-			explicit vector (const allocator_type& alloc = allocator_type()) : _size(0), _volume(0), _allocator(alloc), _tab(NULL) {}
+			explicit vector(const allocator_type& alloc = allocator_type()) : _size(0), _volume(0), _allocator(alloc), _tab(NULL) {}
 			
-			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _size(n), _volume(n), _allocator(alloc), _tab(NULL)
+			explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _size(n), _volume(n), _allocator(alloc), _tab(NULL)
 			{
 				_tab = _allocator.allocate(_size);
 				for (size_type i = 0; i < _size; i++)
@@ -55,7 +55,7 @@ namespace ft
 			}
 
 			template <class InputIterator>
-			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) : _allocator(alloc), _size(0), _volume(0), _tab(NULL)
 			{
 				_size = last - first;
@@ -65,7 +65,7 @@ namespace ft
 					_allocator.construct(&_tab[i], *(first + i));
 			}
 			
-			vector (const vector& x) : _size(0)
+			vector(const vector& x) : _size(0)
 			{
 				_size = x._size;
 				_volume = x._volume;

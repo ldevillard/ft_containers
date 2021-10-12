@@ -16,6 +16,8 @@
 > Vector
 - https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/
 - https://docs.microsoft.com/fr-fr/cpp/standard-library/vector-class?view=msvc-160&viewFallbackFrom=vs-2019
+> Map
+- https://www.programiz.com/dsa/red-black-tree
 > Utils
 - https://eli.thegreenplace.net/2014/sfinae-and-enable_if/
 - https://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/enable-if
