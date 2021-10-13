@@ -9,7 +9,8 @@ HEADERS = includes/containers/Vector.hpp\
 			includes/iterator/IteratorTraits.hpp\
 			includes/utils/Tools.hpp\
 			includes/utils/TypeTraits.hpp\
-			includes/utils/AVLTree.hpp
+			includes/utils/RBTree.hpp\
+			includes/iterator/RBTIterators.hpp
 SRCS =	srcs/main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
