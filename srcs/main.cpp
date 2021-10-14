@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 10:46:35 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/13 15:40:08 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/14 15:01:09 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,13 @@
 
 int main()
 {
+	ft::map<std::string, int> tab;
+
+	tab.insert(ft::pair<std::string, int>("logan", 19));
+	tab.insert(ft::pair<std::string, int>("test", 32));
+	tab.insert(ft::pair<std::string, int>("alo", 9));
+	tab.insert(ft::pair<std::string, int>("ki", 2));
+	tab.print();
+
 
 }

@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:00:38 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/13 14:48:06 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/14 15:22:41 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ namespace ft
 				--(*this);
 				return tmp;
 			}
+
+			node_ptr getCurrent() const { return _it; }
 
 		private:
 			node_ptr _findMin(node_ptr n)

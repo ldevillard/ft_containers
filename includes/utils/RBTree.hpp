@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:38:02 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/13 15:39:26 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/14 14:59:28 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #define RED true
 
 //Great Tutorial for all Binary trees ! https://www.programiz.com/dsa/b-tree
+//See my template bst example in the example folder of this repo
 
 namespace ft
 {
@@ -42,7 +43,7 @@ namespace ft
 		node(value_type const &src) : data(src){}
 	};
 
-	template <class T, class Compare = std::less<typename T::first_type>, class Alloc = std::allocator< node<T> > >
+	template <class T, class Compare, class Alloc = std::allocator< node<T> > >
 	class rb_tree
 	{
 		public:
@@ -97,6 +98,13 @@ namespace ft
 				_alloc.deallocate(_NIL, 1);
 			}
 
+			void print()
+			{
+				if (_root != _NIL)
+					_deepPrint(_root, "", true);
+				std::cout << "size : " << size() << std::endl;
+			}
+
 			void clear()
 			{
 				_deepClear(_root);
@@ -120,8 +128,6 @@ namespace ft
 				
 				ft::pair<node_ptr, bool> ret = _deepInsert(_root, newNode);
 
-				std::cout << ret.second << std::endl;
-
 				if (ret.second)
 				{
 					_size++;
@@ -144,6 +150,27 @@ namespace ft
 			}
 
 		private:
+			void _deepPrint(node_ptr root, std::string indent, bool last)
+			{
+				if (root != _NIL)
+				{
+					std::cout << indent;
+					if (last)
+					{
+						std::cout << "R----";
+						indent += "   ";
+					}
+					else
+					{
+						std::cout << "L----";
+						indent += "|  ";
+					}
+
+					std::cout << root->data.second << std::endl;
+					_deepPrint(root->left, indent, false);
+					_deepPrint(root->right, indent, true);
+				}
+			}
 
 			node_ptr _getRoot(node_ptr n)
 			{

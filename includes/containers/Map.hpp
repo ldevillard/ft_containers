@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:35:20 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/13 15:40:02 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/14 15:04:03 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ namespace ft
 	class Alloc = std::allocator<ft::pair<const Key,T> > >
 	class map
 	{
-		
+
 	};
 }
 
