@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:35:20 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/18 15:34:53 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 16:53:32 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,31 +125,51 @@ namespace ft
 				return (*((this->insert(ft::make_pair(k,mapped_type()))).first)).second;
 			}
 
+			/*--------MODIFIERS-------*/
 			pair<iterator,bool> insert(const value_type &val)
 			{
 				return _tree.insert(val);
 			}
-
 			iterator insert(iterator position, const value_type& val)
 			{
 				return _tree.insert(position, val);
 			}
-
 			template <class InputIterator>
 			void insert(InputIterator first, InputIterator last)
 			{
 				while (first != last)
 					insert(first, *first++);
 			}
-
+			
+			void erase (iterator position)
+			{
+				_tree.erase(position);
+			}
 			size_type erase (const key_type &k)
 			{
 				return _tree.erase(ft::make_pair(k, mapped_type()));
 			}
-
-			void print()
+			void erase (iterator first, iterator last)
 			{
-				_tree.print();
+				while (first != last)
+					_tree.erase(first++);
+			}
+
+			void swap (map& x)
+			{
+				allocator_type allocTmp = _alloc;
+				key_compare keyTmp = _keyComp;
+				value_compare valTmp = _valComp;
+
+				_alloc = x._alloc;
+				_keyComp = x._keyComp;
+				_valComp = x._valComp;
+
+				x._alloc = allocTmp;
+				x._keyComp = keyTmp;
+				x._valComp = valTmp;
+
+				_tree.swap(x._tree);
 			}
 
 			void clear()
@@ -157,6 +177,29 @@ namespace ft
 				_tree.clear();
 			}
 
+			/*--------OBSERVERS-------*/
+			key_compare key_comp() const { return _keyComp; }
+			value_compare value_comp() const { return _valComp; }
+
+			/*--------OPERATIONS-------*/
+			iterator find(const key_type &k)
+			{
+				return _tree.find(ft::make_pair(k, mapped_type()));
+			}
+			const_iterator find(const key_type &k) const
+			{
+				return _tree.find(ft::make_pair(k, mapped_type()));
+			}
+
+			size_type count(const key_type &k) const
+			{
+				return _tree.isIn(ft::make_pair(k, mapped_type()));
+			}
+
+			void print()
+			{
+				_tree.print();
+			}
 		private:
 			ft::rb_tree<value_type, value_compare> _tree;
 			allocator_type _alloc;

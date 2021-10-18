@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:00:38 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/14 15:22:41 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 16:26:01 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ namespace ft
 			bool operator==(const red_black_tree_iterators &it) const { return _it == it._it; }
 			bool operator!=(const red_black_tree_iterators &it) const { return _it != it._it; }
 			reference operator*() { return _it->data; }
-			pointer operator->() { return _it; }
+			pointer operator->() { return &_it->data; }
 
 			red_black_tree_iterators &operator++()
 			{

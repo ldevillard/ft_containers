@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:38:02 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/18 15:36:15 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 16:55:44 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,8 +181,8 @@ namespace ft
 
 			void erase(iterator position)
 			{
-				if (position._it != _NIL)
-					_deepRemove(position._it);
+				if (position.getCurrent() != _NIL)
+					_deepRemove(position.getCurrent());
 			}
 
 			size_type erase(value_type const &k) 
@@ -194,6 +194,53 @@ namespace ft
 				else
 					return 0;
 				return 1;
+			}
+
+			void swap(rb_tree &x)
+			{
+				node_ptr rootTmp = _root;
+				node_ptr nilTmp = _NIL;
+				size_type sizeTmp = _size;
+				allocator_type allocTmp = _alloc;
+				key_compare compTmp = _comp;
+
+				_root = x._root;
+				_NIL = x._NIL;
+				_size = x._size;
+				_alloc = x._alloc;
+				_comp = x._comp;
+
+				x._root = rootTmp;
+				x._NIL = nilTmp;
+				x._size = sizeTmp;
+				x._alloc = allocTmp;
+				x._comp = compTmp;
+			}
+
+			iterator find(const value_type &k)
+			{
+				node_ptr ret = _find(k);
+				
+				if (!ret)
+					return end();
+				else
+					return iterator(ret, _root, _NIL);
+			}
+			const_iterator find(const value_type &k) const
+			{
+				node_ptr ret = _find(k);
+				
+				if (!ret)
+					return end();
+				else
+					return iterator(ret, _root, _NIL);
+			}
+
+			bool isIn(const value_type &k) const
+			{
+				if (_find(k) != NULL)
+					return true;
+				return false;
 			}
 
 		private:

@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 10:46:35 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/18 15:36:47 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 16:55:35 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,62 @@
 
 int main()
 {
+	/*
 	ft::map<std::string, int> ft_map;
 
 	ft_map.insert(ft::make_pair("Logan", 19));
-	ft_map.insert(ft::make_pair("Alex", 12));
-	ft_map.insert(ft::make_pair("Loic", 28));
+	ft_map.insert(ft::make_pair("Boyyyyy", 12));
+	ft_map.insert(ft::make_pair("Leickmay", 28));
 
-	ft::map<std::string, int> tab(ft_map.begin(), ft_map.end());
+	ft::map<std::string, int> tab;
 
-	std::cout << tab["A"] << std::endl;
+	tab.insert(ft::make_pair("heyy", 9));
+	tab.insert(ft::make_pair("dabadi", 2));
+	tab.insert(ft::make_pair("wuhfuen", 4));
+	tab.insert(ft::make_pair("LOLILOL", 29));
+
+	tab.swap(ft_map);
+
 	ft_map.print();
+	std::cout << "--------------------" << std::endl;
 	tab.print();
+	
+	ft::map<char,int> foo;
+	ft::map<char, int>::iterator it;
+
+	foo['x']=100;
+	foo['y']=200;
+	
+	foo['a']=11;
+	foo['b']=22;
+	foo['c']=33;
+
+	foo.print();
+	foo.clear();
+	foo.print();
+
+	it = foo.begin();
+
+	while (it != foo.end())
+	{
+		std::cout << it->first << " : " << it->second << std::endl;
+		it++;
+	}*/
+
+  ft::map<char,int> mymap;
+  char c;
+
+  mymap ['a']=101;
+  mymap ['c']=202;
+  mymap ['f']=303;
+
+  for (c='a'; c<'h'; c++)
+  {
+    std::cout << c;
+    if (mymap.count(c)>0)
+      std::cout << " is an element of mymap.\n";
+    else 
+      std::cout << " is not an element of mymap.\n";
+  }
+
 }
