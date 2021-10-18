@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:38:02 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/14 14:59:28 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 15:36:15 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ namespace ft
 				_NIL->color = BLACK;
 				_root = _NIL;
 			}
-
 			rb_tree(const rb_tree &copy)
 			{
 				_alloc = copy._alloc;
@@ -98,6 +97,23 @@ namespace ft
 				_alloc.deallocate(_NIL, 1);
 			}
 
+			rb_tree &operator=(const rb_tree &copy)
+			{
+				clear();
+				_deepCopy(*this, copy._root, copy._NIL);
+				return *this;
+			}
+
+			iterator begin() { return iterator(_findMin(_root), _root, _NIL); }
+			const_iterator begin() const { return const_iterator(_findMin(_root), _root, _NIL);}
+			iterator end() { return iterator(_NIL, _root, _NIL); }
+			const_iterator end() const { return const_iterator(_NIL, _root, _NIL); }
+
+			reverse_iterator rbegin() { return reverse_iterator(end()); }
+			const_reverse_iterator rbegin() const { return const_reverse_iterator(end()); }
+			reverse_iterator rend() { return reverse_iterator(begin()); }
+			const_reverse_iterator rend() const { return const_reverse_iterator(begin()); }
+
 			void print()
 			{
 				if (_root != _NIL)
@@ -112,15 +128,8 @@ namespace ft
 				_size = 0;
 			}
 
-			size_type size() const
-			{
-				return _size;
-			}
-
-			size_type max_size() const
-			{
-				return _alloc.max_size();
-			}
+			size_type size() const {return _size; }
+			size_type max_size() const { return _alloc.max_size(); }
 
 			ft::pair<iterator,bool> insert(const value_type &val)
 			{
@@ -149,8 +158,199 @@ namespace ft
 				}
 			}
 
+			iterator insert(iterator hint, const value_type &value)
+			{
+				ft::pair<node_ptr, bool> ret;
+				node_ptr it = hint.getCurrent();
+
+				if (it->left == _NIL && _comp(value, it->data))
+				{
+					_size++;
+					ret = _deepInsert(it, _newNode(value));
+				}
+				else if (it->right == _NIL && _comp(it->data, value))
+				{
+					_size++;
+					ret = _deepInsert(it, _newNode(value));
+				}
+				else
+					return insert(value).first;
+
+				return iterator(ret.first, _root, _NIL);
+			}
+
+			void erase(iterator position)
+			{
+				if (position._it != _NIL)
+					_deepRemove(position._it);
+			}
+
+			size_type erase(value_type const &k) 
+			{
+				node_ptr tmp = _find(k);
+
+				if (tmp)
+					_deepRemove(tmp);
+				else
+					return 0;
+				return 1;
+			}
+
 		private:
-			void _deepPrint(node_ptr root, std::string indent, bool last)
+			void _deepRemove(node_ptr z)
+			{
+				node_ptr y = z;
+				node_ptr x;
+				bool y_original_color = y->color;
+
+				if (z->left == _NIL)
+				{
+					x = z->right;
+					_invert(z, z->right);
+				}
+				else if (z->right == _NIL)
+				{
+					x = z->left;
+					_invert(z, z->left);
+				}
+				else
+				{
+					y = _findMin(z->right);
+					y_original_color = y->color;
+					x = y->right;
+					if (y->parent == z)
+						x->parent = y;
+					else
+					{
+						_invert(y, y->right);
+						y->right = z->right;
+						y->right->parent = y;
+					}
+					_invert(z, y);
+					y->left = z->left;
+					y->left->parent = y;
+					y->color = z->color;
+				}
+				_alloc.destroy(z);
+				_alloc.deallocate(z, 1);
+				_size--;
+				if (y_original_color == BLACK)
+					_removeFix(x);
+			}
+
+			void _removeFix(node_ptr x)
+			{
+				node_ptr s;
+				while (x != _root && x->color == BLACK)
+				{
+					if (x == x->parent->left)
+					{
+						s = x->parent->right;
+						if (s->color == RED)
+						{
+							s->color = BLACK;
+							x->parent->color = RED;
+							_leftRotate(x->parent);
+							s = x->parent->right;
+						}
+						if (s->left->color == BLACK && s->right->color == BLACK)
+						{
+							s->color = RED;
+							x = x->parent;
+						}
+						else
+						{
+							if (s->right->color == BLACK)
+							{
+								s->left->color = BLACK;
+								s->color = RED;
+								_rightRotate(s);
+								s = x->parent->right;
+							}
+							s->color = x->parent->color;
+							x->parent->color = BLACK;
+							s->right->color = BLACK;
+							_leftRotate(x->parent);
+							x = _root;
+						}
+					}
+					else
+					{
+						s = x->parent->left;
+						if (s->color == RED)
+						{
+							s->color = BLACK;
+							x->parent->color = RED;
+							_rightRotate(x->parent);
+							s = x->parent->left;
+						}
+						if (s->right->color == BLACK && s->left->color == BLACK)
+						{
+							s->color = RED;
+							x = x->parent;
+						}
+						else
+						{
+							if (s->left->color == BLACK)
+							{
+								s->right->color = BLACK;
+								s->color = RED;
+								_leftRotate(s);
+								s = x->parent->left;
+							}
+							s->color = x->parent->color;
+							x->parent->color = BLACK;
+							s->left->color = BLACK;
+							_rightRotate(x->parent);
+							x = _root;
+						}
+					}
+				}
+				x->color = BLACK;
+			}
+
+			void _invert(node_ptr old, node_ptr latest)
+			{
+				if (old->parent == _NIL)
+					_root = latest;
+				else if (old == old->parent->left)
+					old->parent->left = latest;
+				else
+					old->parent->right = latest;
+				latest->parent = old->parent;
+			}
+
+			node_ptr _findMin(node_ptr root) const 
+			{
+				while (root->left != _NIL)
+					root = root->left;
+				return root;
+			}
+
+			node_ptr _findMax(node_ptr root) const 
+			{
+				while (root->right != _NIL)
+					root = root->right;
+				return root;
+			}
+
+			node_ptr _find(value_type const &val) const
+			{
+				node_ptr tmp = _root;
+
+				while (tmp != _NIL)
+				{
+					if (_comp(val, tmp->data))
+						tmp = tmp->left;
+					else if (_comp(tmp->data, val))
+						tmp = tmp->right;
+					else
+						return tmp;
+				}
+				return NULL;
+			}
+
+			void _deepPrint(node_ptr root, std::string indent, bool last) const
 			{
 				if (root != _NIL)
 				{
@@ -166,13 +366,13 @@ namespace ft
 						indent += "|  ";
 					}
 
-					std::cout << root->data.second << std::endl;
+					std::cout << root->data.first << " : " << root->data.second << std::endl;
 					_deepPrint(root->left, indent, false);
 					_deepPrint(root->right, indent, true);
 				}
 			}
 
-			node_ptr _getRoot(node_ptr n)
+			node_ptr _getRoot(node_ptr n) const
 			{
 				node_ptr tmp = n;
 
