@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:35:20 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/18 16:53:32 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 17:18:56 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,12 @@ namespace ft
 			{
 				return _tree.isIn(ft::make_pair(k, mapped_type()));
 			}
+
+			//iterator lower_bound(const key_type &k)
+			//{
+				
+			//}
+			//const_iterator lower_bound(const key_type &k) const;
 
 			void print()
 			{

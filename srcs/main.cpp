@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 10:46:35 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/18 16:55:35 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/18 17:21:02 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,16 @@ int main()
 		it++;
 	}*/
 
-  ft::map<char,int> mymap;
-  char c;
+  std::map<char,int> mymap;
 
   mymap ['a']=101;
-  mymap ['c']=202;
+  mymap ['r']=202;
+  mymap ['c']=303;
+  mymap ['d']=101;
+  mymap ['h']=202;
   mymap ['f']=303;
 
-  for (c='a'; c<'h'; c++)
-  {
-    std::cout << c;
-    if (mymap.count(c)>0)
-      std::cout << " is an element of mymap.\n";
-    else 
-      std::cout << " is not an element of mymap.\n";
-  }
+  std::cout << mymap.lower_bound('b')->first << std::endl;
+  std::cout << mymap.upper_bound('b')->first << std::endl;
 
 }
