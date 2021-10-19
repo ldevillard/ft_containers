@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 10:46:35 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/18 17:21:02 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/19 10:39:33 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,29 @@ int main()
 		it++;
 	}*/
 
-  std::map<char,int> mymap;
+    ft::map<int, char> alice;
+	alice[1] = 'a';
+	alice[2] = 'b';
+	alice[3] = 'c';
+    ft::map<int, char> bob;
+	bob[7] = 'Z';
+	bob[8] = 'Y';
+	bob[9] = 'X';
+	bob[10] = 'W';
 
-  mymap ['a']=101;
-  mymap ['r']=202;
-  mymap ['c']=303;
-  mymap ['d']=101;
-  mymap ['h']=202;
-  mymap ['f']=303;
 
-  std::cout << mymap.lower_bound('b')->first << std::endl;
-  std::cout << mymap.upper_bound('b')->first << std::endl;
+	for (int i = 1; i < 4; i++)
+		std::cout << alice[i] << std::endl;
+	std::cout << "---------" << std::endl;
+	for (int i = 7; i < 11; i++)
+		std::cout << bob[i] << std::endl;
 
+	ft::swap(alice, bob);
+	std::cout << "-------------------" << std::endl;
+
+	for (int i = 1; i < 4; i++)
+		std::cout << bob[i] << std::endl;
+	std::cout << "---------" << std::endl;
+	for (int i = 7; i < 11; i++)
+		std::cout << alice[i] << std::endl;
 }

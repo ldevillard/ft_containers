@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:38:02 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/18 16:55:44 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/19 10:03:38 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ namespace ft
 			typedef node *node_ptr;
 
 			typedef ft::red_black_tree_iterators<node> iterator;
-			typedef ft::red_black_tree_iterators<const node> const_iterator;
+			typedef ft::red_black_tree_iterators<node> const_iterator;
 			typedef ft::reverse_iterator<iterator> reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -241,6 +241,66 @@ namespace ft
 				if (_find(k) != NULL)
 					return true;
 				return false;
+			}
+
+			iterator lower_bound(const value_type &k)
+			{
+				iterator it = begin();
+				node_ptr tmp;
+
+				while (it != end())
+				{
+					tmp = it.getCurrent();
+					if (_comp(k, tmp->data) || (!_comp(k, tmp->data) && !_comp(tmp->data, k)))
+						return it;
+					it++;
+				}
+				return it;
+			}
+
+			const_iterator lower_bound(const value_type &k) const
+			{
+				iterator it = begin();
+				node_ptr tmp;
+
+				while (it != end())
+				{
+					tmp = it.getCurrent();
+					if (_comp(k, tmp->data) || (!_comp(k, tmp->data) && !_comp(tmp->data, k)))
+						return it;
+					it++;
+				}
+				return it;
+			}
+
+			iterator upper_bound(const value_type &k)
+			{
+				iterator it = begin();
+				node_ptr tmp;
+
+				while (it != end())
+				{
+					tmp = it.getCurrent();
+					if (_comp(k, tmp->data))
+						return it;
+					it++;
+				}
+				return it;
+			}
+
+			const_iterator upper_bound(const value_type &k) const
+			{
+				iterator it = begin();
+				node_ptr tmp;
+
+				while (it != end())
+				{
+					tmp = it.getCurrent();
+					if (_comp(k, tmp->data))
+						return it;
+					it++;
+				}
+				return it;
 			}
 
 		private:

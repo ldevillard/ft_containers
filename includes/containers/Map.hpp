@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 15:35:20 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/18 17:18:56 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/19 10:27:58 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,22 +196,96 @@ namespace ft
 				return _tree.isIn(ft::make_pair(k, mapped_type()));
 			}
 
-			//iterator lower_bound(const key_type &k)
-			//{
-				
-			//}
-			//const_iterator lower_bound(const key_type &k) const;
+			iterator lower_bound(const key_type &k)
+			{
+				return _tree.lower_bound(ft::make_pair(k, mapped_type()));
+			}
 
-			void print()
+			const_iterator lower_bound(const key_type &k) const
+			{
+				return _tree.lower_bound(ft::make_pair(k, mapped_type()));
+			}
+
+			iterator upper_bound(const key_type &k)
+			{
+				return _tree.upper_bound(ft::make_pair(k, mapped_type()));
+			}
+
+			const_iterator upper_bound(const key_type &k) const
+			{
+				return _tree.upper_bound(ft::make_pair(k, mapped_type()));
+			}
+
+			ft::pair<iterator,iterator> equal_range(const key_type &k)
+			{
+				iterator low = lower_bound(k);
+				iterator up = upper_bound(k);
+				return ft::make_pair(low, up);
+			}
+			ft::pair<const_iterator,const_iterator> equal_range(const key_type &k) const
+			{
+				const_iterator low = lower_bound(k);
+				const_iterator up = upper_bound(k);
+				return ft::make_pair(low, up);
+			}
+
+			/*--------ALLOCATOR-------*/
+			allocator_type get_allocator() const { return _alloc; }
+
+			/*void print() //DEBUG
 			{
 				_tree.print();
-			}
+			}*/
 		private:
 			ft::rb_tree<value_type, value_compare> _tree;
 			allocator_type _alloc;
 			key_compare _keyComp;
 			value_compare _valComp;
 	};
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator==(const ft::map<Key, T, Compare, Alloc> &lhs, const ft::map<Key, T, Compare, Alloc> &rhs)
+	{
+		if (lhs.size() == rhs.size())
+			return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+		return false;
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator!=(const ft::map<Key, T, Compare, Alloc> &lhs, const ft::map<Key, T, Compare, Alloc> &rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator<(const ft::map<Key, T, Compare, Alloc> &lhs, const ft::map<Key, T, Compare, Alloc> &rhs)
+	{
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator<=(const ft::map<Key, T, Compare, Alloc> &lhs, const ft::map<Key, T, Compare, Alloc> &rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator>(const ft::map<Key, T, Compare, Alloc> &lhs, const ft::map<Key, T, Compare, Alloc> &rhs)
+	{
+		return rhs < lhs;
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	bool operator>=(const ft::map<Key, T, Compare, Alloc> &lhs, const ft::map<Key, T, Compare, Alloc> &rhs)
+	{
+		return !(lhs < rhs);
+	}
+
+	template <class Key, class T, class Compare, class Alloc>
+	void swap(ft::map<Key, T, Compare, Alloc> &lhs, ft::map<Key, T, Compare, Alloc> &rhs)
+	{
+		lhs.swap(rhs);
+	}
 }
 
 #endif
