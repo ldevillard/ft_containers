@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 13:38:02 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/19 12:05:01 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/19 16:52:19 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,23 +160,18 @@ namespace ft
 
 			iterator insert(iterator hint, const value_type &value)
 			{
-				ft::pair<node_ptr, bool> ret;
-				node_ptr it = hint.getCurrent();
+				node_ptr next = _next(hint.getCurrent());
 
-				if (it->left == _NIL && _comp(value, it->data))
+				if (_comp(hint.getCurrent()->data, value) && _comp(value, next->data))
 				{
+					node_ptr newNode = _newNode(value);
+
+					ft::pair<node_ptr, bool> r = _deepInsert(hint.getCurrent(), newNode);
 					_size++;
-					ret = _deepInsert(it, _newNode(value));
-				}
-				else if (it->right == _NIL && _comp(it->data, value))
-				{
-					_size++;
-					ret = _deepInsert(it, _newNode(value));
+					return iterator(r.first, _root, _NIL);
 				}
 				else
 					return insert(value).first;
-
-				return iterator(ret.first, _root, _NIL);
 			}
 
 			void erase(iterator position)
@@ -565,6 +560,22 @@ namespace ft
 
 				y->left = x;
 				x->parent = y;
+			}
+
+			node_ptr _next(node_ptr n) const
+			{
+				node_ptr tmp = _NIL;
+
+				if (n->right != _NIL)
+					return _findMin(n->right);
+
+				tmp = n->parent;
+				while (tmp != _NIL && n == tmp->right)
+				{
+					n = tmp;
+					tmp = tmp->parent;
+				}
+				return tmp;
 			}
 
 			void _rightRotate(node_ptr x)

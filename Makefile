@@ -12,15 +12,14 @@ HEADERS = includes/containers/Vector.hpp\
 			includes/utils/RBTree.hpp\
 			includes/iterator/RBTIterators.hpp
 SRCS =	srcs/main.cpp\
-		srcs/vector_test.cpp
+		srcs/vector_test.cpp\
+		srcs/stack_test.cpp\
+		srcs/map_test.cpp\
+		srcs/set_test.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
 %.o: %.cpp $(HEADERS)
-		@echo "\033[35m┌─┐┌┬┐   ┌─┐┌─┐┌┐┌┌┬┐┌─┐┬┌┐┌┌─┐┬─┐┌─┐\033[0m"
-		@echo "\033[34m├┤  │    │  │ ││││ │ ├─┤││││├┤ ├┬┘└─┐\033[0m"
-		@echo "\033[36m└   ┴────└─┘└─┘┘└┘ ┴ ┴ ┴┴┘└┘└─┘┴└─└─┘\033[0m"
-		@echo "\033[34m_____________________________________\n\033[0m"
 		@echo "\033[33m"
 		$(CC) $(FLAGS) -c $< -o $(<:.cpp=.o)
 		@echo "\033[0m"

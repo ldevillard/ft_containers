@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:24:59 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/19 14:35:24 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/19 17:20:00 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,25 @@ void contructors()
 	while (copyIt2 != copy2.end())
 		std::cout << GREEN << *copyIt2++ << ' ';
 	std::cout << " - std" << std::endl;
+
+	std::cout << RED << "OPERATOR = " << std::endl;
+
+	ft::vector<std::string> o1(5, "hey");
+	std::vector<std::string> o2(5, "hey");
+
+	ft::vector<std::string> o3 = o1;
+	std::vector<std::string> o4 = o2;
+	ft::vector<std::string>::iterator oit = o3.begin();
+	std::vector<std::string>::iterator oit2 = o4.begin();
+
+	while (oit != o3.end())
+		std::cout << PURPLE << *oit++ << ' ';
+	std::cout << " - ft" << std::endl;
+
+	while (oit2 != o4.end())
+		std::cout << GREEN << *oit2++ << ' ';
+	std::cout << " - std" << std::endl;
+
 
 	std::cout << std::endl;
 }
@@ -353,6 +372,7 @@ void operators()
 
 void vector_test()
 {
+	std::cout << "-------------------------------------------------------------------" << std::endl;
 	std::cout << "VECTOR TEST" << std::endl << std::endl;
 	contructors();
 	iterators();
@@ -360,4 +380,5 @@ void vector_test()
 	access();
 	modifiers();
 	operators();
+	std::cout << "--------------------------------------------------------------------" << std::endl;
 }
