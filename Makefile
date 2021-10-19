@@ -11,7 +11,8 @@ HEADERS = includes/containers/Vector.hpp\
 			includes/utils/TypeTraits.hpp\
 			includes/utils/RBTree.hpp\
 			includes/iterator/RBTIterators.hpp
-SRCS =	srcs/main.cpp
+SRCS =	srcs/main.cpp\
+		srcs/vector_test.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

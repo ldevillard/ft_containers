@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/14 12:32:04 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/11 15:31:23 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/19 14:13:04 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "../utils/TypeTraits.hpp"
 #include "../utils/Tools.hpp"
 
-#include <iostream>
+//#include <iostream>
 
 namespace ft
 {
@@ -56,7 +56,7 @@ namespace ft
 
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) : _allocator(alloc), _size(0), _volume(0), _tab(NULL)
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL) : _size(0), _volume(0), _allocator(alloc), _tab(NULL)
 			{
 				_size = last - first;
 				_volume = _size;
@@ -154,8 +154,8 @@ namespace ft
 					throw std::out_of_range("Error: you're trying to acceed to an out of ranage element!");
 				return _tab[n];
 			}
-			reference front() { _tab[0]; }
-			const_reference front() const { _tab[0]; }
+			reference front() { return _tab[0]; }
+			const_reference front() const { return _tab[0]; }
 			reference back() { return _tab[_size - 1]; }
 			const_reference back() const { return _tab[_size - 1]; }
 

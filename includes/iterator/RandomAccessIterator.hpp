@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 12:34:55 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/07 10:42:44 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/19 11:21:11 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ namespace ft
 			{
 				_it = copy._it;
 				return *this;
+			}
+
+			operator random_access_iterator<value_type const>() const
+			{
+				return random_access_iterator<value_type const>(_it);
 			}
 
 			//COMPARISON OPERATORS

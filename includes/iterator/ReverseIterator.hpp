@@ -6,7 +6,7 @@
 /*   By: ldevilla <ldevilla@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 10:54:17 by ldevilla          #+#    #+#             */
-/*   Updated: 2021/10/06 14:20:04 by ldevilla         ###   ########lyon.fr   */
+/*   Updated: 2021/10/19 13:56:57 by ldevilla         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,10 @@ namespace ft
 			reverse_iterator() : _baseIt(){}
 			explicit reverse_iterator(iterator_type it) : _baseIt(it){}
 			template <class Iter>
-			reverse_iterator (const reverse_iterator<Iter> &rev_it) : _baseIt(rev_it._baseIt){}
+			reverse_iterator (const reverse_iterator<Iter> &rev_it) : _baseIt(rev_it.base()){}
 
 			iterator_type base() const { return _baseIt; }
+
 			//DEREFERENCED OPERATORS
 			reference operator*() const 
 			{
