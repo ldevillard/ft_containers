@@ -1,6 +1,8 @@
 # ft_containers
 
-### Great explanations are coming soon, just waiting to validate my project
+### I made a french article about BST :)
+- https://metal-geography-067.notion.site/Binary-Search-Tree-30d6473427324e6fb1cc8c24d0f7938e
+
 
 #### Useful links
 
